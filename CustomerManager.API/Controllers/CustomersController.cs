@@ -34,7 +34,7 @@ namespace CustomerManager.API.Controllers
         public async Task<ActionResult<Customer>> GetCustomer(string name)
         {
             var customer = await _customerRepo.GetByNameAsync(name);
-            //return customer == null ? NotFound(name) : customer;
+            // return customer == null ? NotFound(name) : customer;
 
             if (customer == null)
             {
