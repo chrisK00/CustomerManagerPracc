@@ -6,7 +6,8 @@ Will expand the app later on and practice with a angular view aswell.
 Api:
 - Repository pattern and unit of work
 - Http requests/responses
-- InMemoryDb 
+- InMemoryDb (EF)
+- Extension method
 
 Angular:
 - Parent to child communication
