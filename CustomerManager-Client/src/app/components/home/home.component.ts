@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Customer } from 'src/app/_interfaces/customer';
+import { AuthService } from 'src/app/_services/auth.service';
 import { CustomerService } from 'src/app/_services/customer.service';
 
 @Component({
@@ -13,12 +14,12 @@ export class HomeComponent implements OnInit {
   constructor(private customerService: CustomerService) { }
 
   ngOnInit(): void {
-    this.loadCustomers();
+
   }
 
   loadCustomers() {
-    this.customerService.getCustomers().subscribe(customers => this.customers = customers), error =>
-      console.log(error);
+    this.customerService.getCustomers().subscribe(customers => this.customers = customers),
+      error => console.log(error);
   }
 
 }

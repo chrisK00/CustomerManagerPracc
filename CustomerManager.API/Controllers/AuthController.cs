@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CustomerManager.API.DTOs;
 using CustomerManager.API.Models;
 using CustomerManager.API.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -18,12 +19,12 @@ namespace CustomerManager.API.Controllers
             _tokenService = tokenService;
         }
         [HttpPost("login")]
-        public ActionResult<string> Login()
+        public ActionResult<UserDTO> Login(string user)
         {
             //Todo
             //send back a jwt token
             var token = _tokenService.CreateToken();
-            return token;
+            return new UserDTO { Token = token };
         }
     }
 }
