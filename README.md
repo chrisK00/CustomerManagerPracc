@@ -1,5 +1,5 @@
 # CustomerManagerPracc
-Practicing general stuff
+Practicing general stuff - not sure why its called customermanager honestly just random stuff.
 Will expand the app later on and practice with a angular view aswell.
 
 ### Whats implemented/practiced so far
