@@ -8,16 +8,21 @@ Api:
 - Http requests/responses
 - InMemoryDb (EF)
 - Extension method
+- JWT token and Authorization
+- 
+- 
 
 Angular:
 - Parent to child communication
 - Ng directive
-- Service
+- Services
 - Http request/response
 - Observable
 - Routing
 - Interface
+- JWT token
 
 Postman:
-
+- Http requests/responses
+- JWT token
 
