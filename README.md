@@ -19,6 +19,7 @@ Angular:
 - Routing
 - Interface
 - JWT token
+- Typescript
 
 Postman:
 - Http requests/responses
