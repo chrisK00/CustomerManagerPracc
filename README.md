@@ -1,6 +1,6 @@
-# CustomerManagerPracc
-Practicing general stuff - not sure why its called customermanager honestly just random stuff.
-Will expand the app later on and practice with a angular view aswell.
+# CustomerFinderPracc
+Practicing general stuff - not sure why its called customermanager honestly just random stuff. Might change to something like CustomerFinder and implement a couple of things learnt from https://www.udemy.com/course/build-an-app-with-aspnet-core-and-angular-from-scratch/
+Will expand the app later on
 
 ### Whats implemented/practiced so far
 Api:
@@ -12,14 +12,16 @@ Api:
 
 Angular:
 - Parent to child communication
-- Ng directive
+- Ng directives
 - Services
 - Http request/response
-- Observable
+- Observables and subject
 - Routing
 - Interface
 - JWT token
 - Typescript
+- async pipe
+- Interceptor
 
 Postman:
 - Http requests/responses

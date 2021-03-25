@@ -27,6 +27,7 @@ namespace CustomerManager.API.Controllers
 
             //Todo
             //move to data seed class 
+            //add xml comments on methods and enable swagger xml doc file
             FakeSeedDataAsync();
         }
 
