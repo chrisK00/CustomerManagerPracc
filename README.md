@@ -16,15 +16,12 @@ Api:
 Angular:
 - Parent to child communication
 - Ng directives, ngForm, Model binding
-- Services
+- Services and Interceptor
 - Http request/response
-- Observables and subject
+- Observables, subject and async pipe
 - Routing
-- Interface
+- Interfaces and Typescript
 - JWT token
-- Typescript
-- async pipe
-- Interceptor
 - rxjs
 - bootstrap
 
