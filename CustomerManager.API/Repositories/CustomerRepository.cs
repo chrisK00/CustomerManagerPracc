@@ -21,10 +21,6 @@ namespace CustomerManager.API.Repositories
             _context = context;
             _mapper = mapper;
         }
-        public async Task AddAsync(Customer customer)
-        {
-            await _context.Customers.AddAsync(customer);
-        }
 
         public async Task<ICollection<MemberDTO>> GetMembersAsync()
         {           
@@ -48,9 +44,16 @@ namespace CustomerManager.API.Repositories
             return customer;
         }
 
+        //Todo
+        //update below they are old
         public void Remove(Customer customer)
         {
             _context.Customers.Remove(customer);
+        }
+
+        public async Task AddAsync(Customer customer)
+        {
+            await _context.Customers.AddAsync(customer);
         }
 
         public void Update(Customer customer)
