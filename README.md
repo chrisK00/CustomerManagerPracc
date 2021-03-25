@@ -12,7 +12,7 @@ Api:
 
 Angular:
 - Parent to child communication
-- Ng directive
+- Ng directives
 - Services
 - Http request/response
 - Observables and subject
