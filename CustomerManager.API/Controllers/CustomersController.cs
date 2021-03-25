@@ -79,6 +79,7 @@ namespace CustomerManager.API.Controllers
             //Todo
             //Throw keynotfound exception inside of service
             //Catch and send back Notfound
+            //update route should have id in url
 
             _customerRepo.Remove(customer);
             _unitOfWork.SaveAsync();

@@ -22,7 +22,8 @@ namespace CustomerManager.API.Controllers
         public ActionResult<UserDTO> Login(string user)
         {
             //Todo
-            //send back a jwt token
+            //setup identity framework 
+
             var token = _tokenService.CreateToken();
             return new UserDTO { Token = token };
         }
