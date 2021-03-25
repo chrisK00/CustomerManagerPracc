@@ -11,7 +11,7 @@ import { CustomerService } from 'src/app/_services/customer.service';
 export class HomeComponent implements OnInit {
   customers: Customer[];
 
-  constructor(private customerService: CustomerService) { }
+  constructor(private customerService: CustomerService, public authService: AuthService) { }
 
   ngOnInit(): void {
 

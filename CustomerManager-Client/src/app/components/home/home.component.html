@@ -1,7 +1,12 @@
-<button class="btn btn-success mr-3" (click)="loadCustomers()">Customers</button>
-<div class="row">
-    <ul class="list-group ml-5">
-        <app-customer-row *ngFor="let customer of customers" [customer]=customer>
-        </app-customer-row>
-    </ul>
-</div>
+<ng-container *ngIf="authService.currentUser$ | async">
+    <button class="btn btn-success mr-3" (click)="loadCustomers()">Customers</button>
+    <div class="row">
+        <ul class="list-group ml-5">
+            <app-customer-row *ngFor="let customer of customers" [customer]=customer>
+            </app-customer-row>
+        </ul>
+    </div>
+</ng-container>
+<!--Todo 
+Use guard
+-->

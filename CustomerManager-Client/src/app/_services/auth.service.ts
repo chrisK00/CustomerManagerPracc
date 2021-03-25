@@ -10,6 +10,8 @@ import { User } from '../_interfaces/user';
 })
 export class AuthService {
   baseUrl = environment.apiUrl;
+  private currentUser = new ReplaySubject<User>(1);
+  currentUser$ = this.currentUser.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -21,6 +23,7 @@ export class AuthService {
           return;
         }
         localStorage.setItem('user', JSON.stringify(user));
+        this.currentUser.next(user);
       })
     )
   }
