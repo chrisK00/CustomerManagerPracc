@@ -1,6 +1,6 @@
 # CustomerFinderPracc
 Practicing general stuff - not sure why its called customermanager honestly just random stuff. Might change to something like CustomerFinder and implement a couple of things learnt from https://www.udemy.com/course/build-an-app-with-aspnet-core-and-angular-from-scratch/
-Will expand the app later on and practice with a angular view aswell.
+Will expand the app later on
 
 ### Whats implemented/practiced so far
 Api:
