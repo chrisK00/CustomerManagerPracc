@@ -1,0 +1,12 @@
+.typewriter {
+  animation: typing 2.5s;
+}
+
+@keyframes typing {
+  from {
+    width: 50%;
+  }
+  to {
+    width: 100%;
+  }
+}

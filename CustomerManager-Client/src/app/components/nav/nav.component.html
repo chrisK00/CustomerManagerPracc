@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="">Customer Finder</a>
+    <a class="navbar-brand" routerLink=''>Customer Finder</a>
     <ul *ngIf="authService.currentCustomer$ | async" class="navbar-nav mr-auto">
-        <li class="nav-item"> <a class="nav-link" routerLink="/errors">Errors</a></li>
-        <li class="nav-item"> <a class="nav-link" routerLink="/members">Members</a></li>
+        <li class="nav-item"> <a class="nav-link" routerLinkActive="active" routerLink="/errors">Errors</a></li>
+        <li class="nav-item"> <a class="nav-link" routerLinkActive="active" routerLink="/members">Members</a></li>
     </ul>
 
     <ng-container *ngIf="(authService.currentCustomer$ | async) === null">
@@ -13,11 +13,11 @@
         </form>
     </ng-container>
 
-    <button *ngIf="authService.currentCustomer$ | async" (click)="logout()" class="btn btn-danger mx-5">Logout</button>
+    <button *ngIf="authService.currentCustomer$ | async" (click)="logout()" routerLink=""
+        class="btn btn-danger mx-5">Logout</button>
 </nav>
 <!--
     Todo
-    create a service  to store current user and use async pipe to check if authorized, 
-    add interceptor for errors and sending the token,
-    add auth guard
+    add interceptor for errors
+
 -->

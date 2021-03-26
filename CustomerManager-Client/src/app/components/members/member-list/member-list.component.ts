@@ -15,7 +15,7 @@ export class MemberListComponent implements OnInit {
   constructor(private membersService: MembersService, public authService: AuthService) { }
 
   ngOnInit(): void {
-
+    this.loadCustomers();
   }
 
   loadCustomers() {

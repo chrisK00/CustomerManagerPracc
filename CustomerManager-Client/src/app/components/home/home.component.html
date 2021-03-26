@@ -1,1 +1,3 @@
+<h5 *ngIf="(authService.currentCustomer$ | async) as customer" class="typewriter">Welcome {{customer.username
+    |titlecase}}</h5>
 <app-register *ngIf="(authService.currentCustomer$ | async) === null"></app-register>

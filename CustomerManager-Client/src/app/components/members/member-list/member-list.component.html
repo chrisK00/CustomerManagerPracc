@@ -1,10 +1,4 @@
-<ng-container *ngIf="authService.currentCustomer$ | async">
-    <button class="btn btn-success mr-3" (click)="loadCustomers()">Customers</button>
-    <div class="row">
-        <app-member-card class="col-2" *ngFor="let member of members" [member]=member>
-        </app-member-card>
-    </div>
-</ng-container>
-<!--Todo 
-Use guard
--->
+<div class="row">
+    <app-member-card class="col-2" *ngFor="let member of members" [member]=member>
+    </app-member-card>
+</div>
