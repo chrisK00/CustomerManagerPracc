@@ -25,16 +25,7 @@ namespace CustomerManager.API.Controllers
             _customerRepo = customerRepo;
             _unitOfWork = unitOfWork;
 
-            //Todo
-            //move to data seed class 
             //add xml comments on methods and enable swagger xml doc file
-            FakeSeedDataAsync();
-        }
-
-       private async Task FakeSeedDataAsync()
-        {
-            await _customerRepo.AddAsync(new Customer { Username = "Monkey" });
-            await _unitOfWork.SaveAsync();
         }
 
         [HttpGet]
