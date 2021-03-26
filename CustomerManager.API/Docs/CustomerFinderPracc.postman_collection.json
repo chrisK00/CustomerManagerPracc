@@ -32,7 +32,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"chris\"\r\n}",
+					"raw": "{\r\n    \"username\": \"Hull\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -71,6 +71,39 @@
 					"path": [
 						"customers",
 						"Hull"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Hull",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"lookingFor\":\"lol\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{custUrl}}/customers/3",
+					"host": [
+						"{{custUrl}}"
+					],
+					"path": [
+						"customers",
+						"3"
 					]
 				}
 			},

@@ -22,27 +22,33 @@ namespace CustomerManager.API.Repositories
             _mapper = mapper;
         }
 
-        public async Task<AppUser> GetCustomerAsync(int id)
+        public async Task<AppUser> GetUserAsync(int id)
         {
-            var customer = await _context.AppUsers.Include(p => p.Photos).FirstOrDefaultAsync(c => c.Id == id);
-            return customer;
+            var user = await _context.AppUsers.Include(p => p.Photos).FirstOrDefaultAsync(u => u.Id == id);
+            return user;
         }
 
-        public async Task<ICollection<CustomerDTO>> GetMembersAsync()
+        public async Task<AppUser> GetUserByNameAsync(string username)
+        {
+            var user = await _context.AppUsers.Include(p => p.Photos).FirstOrDefaultAsync(u => u.Username == username);
+            return user;
+        }
+
+        public async Task<ICollection<CustomerDTO>> GetCustomersAsync()
         {           
-            var members = await _context.AppUsers.ProjectTo<CustomerDTO>(_mapper.ConfigurationProvider).ToListAsync();
-            return members;
+            var customers = await _context.AppUsers.ProjectTo<CustomerDTO>(_mapper.ConfigurationProvider).ToListAsync();
+            return customers;
         }
 
-        public async Task<UserDTO> GetCustomerByUsernameAsync(string username)
+        public async Task<UserDTO> GetUserDTOByUsernameAsync(string username)
         {
-           var customer = await _context.AppUsers
+           var user = await _context.AppUsers
                 .Where(c => c.Username == username)
                 .ProjectTo<UserDTO>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
-            return customer;
+            return user;
         }
 
-        public async Task<CustomerDTO> GetMemberByUsernameAsync(string username)
+        public async Task<CustomerDTO> GetCustomerByUsernameAsync(string username)
         {
             var customer = await _context.AppUsers
                  .Where(c => c.Username == username)
@@ -60,9 +66,6 @@ namespace CustomerManager.API.Repositories
             await _context.AppUsers.AddAsync(customer);
         }
 
-        public void Update(AppUser customer)
-        {
-            _context.Entry(customer).State = EntityState.Modified;
-        }
+    
     }
 }

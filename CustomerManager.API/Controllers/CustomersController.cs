@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
 using CustomerManager.API.DTOs;
 using CustomerManager.API.Models;
 using CustomerManager.API.Repositories.Interfaces;
@@ -15,8 +17,10 @@ namespace CustomerManager.API.Controllers
         private readonly ILogger<CustomersController> _logger;
         private readonly ICustomerRepository _customerRepo;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public CustomersController(ILogger<CustomersController> logger, ICustomerRepository customerRepo, IUnitOfWork unitOfWork)
+        public CustomersController(ILogger<CustomersController> logger, ICustomerRepository customerRepo, IUnitOfWork unitOfWork,
+            IMapper mapper)
         {
             _logger = logger;
 
@@ -24,6 +28,8 @@ namespace CustomerManager.API.Controllers
             //move to service
             _customerRepo = customerRepo;
             _unitOfWork = unitOfWork;
+            //should have a service that does the update and mappings
+            _mapper = mapper;
 
             //add xml comments on methods and enable swagger xml doc file
         }
@@ -31,14 +37,14 @@ namespace CustomerManager.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CustomerDTO>>> GetCustomers()
         {
-            var customers = await _customerRepo.GetMembersAsync();
+            var customers = await _customerRepo.GetCustomersAsync();
             return Ok(customers);
         }
 
         [HttpGet("{username}")]
         public async Task<ActionResult<CustomerDTO>> GetCustomer(string username)
         {
-            var customer = await _customerRepo.GetMemberByUsernameAsync(username);
+            var customer = await _customerRepo.GetCustomerByUsernameAsync(username);
             // return customer == null ? NotFound(name) : customer;
 
             if (customer == null)
@@ -53,11 +59,17 @@ namespace CustomerManager.API.Controllers
         //Todo
         //update the methods make use of the url username + jwt User claims
         [HttpPut("{username}")]
-        public async Task<IActionResult> UpdateCustomer(string username, AppUser customer)
-        {            
-            _customerRepo.Update(customer);
-            await _unitOfWork.SaveAsync();
-            return NoContent();
+        public async Task<IActionResult> UpdateCustomer(string username, CustomerUpdateDTO customer)
+        {
+            var usernameFromToken = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = await _customerRepo.GetUserByNameAsync(usernameFromToken);
+            _mapper.Map(customer, user);
+
+            if (await _unitOfWork.SaveAsync())
+            {
+                return NoContent();
+            }
+            return BadRequest("Failed to update user");
         }
         
         [HttpPost]

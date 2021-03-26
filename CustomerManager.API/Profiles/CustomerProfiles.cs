@@ -16,6 +16,7 @@ namespace CustomerManager.API.Profiles
             //option is map from source
             //src is main photo
 
+            CreateMap<CustomerUpdateDTO, AppUser>();
             CreateMap<Photo, PhotoDTO>();
         }
     }
