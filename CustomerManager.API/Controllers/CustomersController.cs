@@ -51,7 +51,7 @@ namespace CustomerManager.API.Controllers
         }
 
         //Todo
-        //update the method below
+        //update the methods make use of the url username + jwt User claims
         [HttpPut("{username}")]
         public async Task<IActionResult> UpdateCustomer(string username, AppUser customer)
         {            
