@@ -53,7 +53,7 @@ namespace CustomerManager.API.Controllers
                 return NotFound(username);
             }
 
-            return customer;
+            return customer; 
         }
 
         //Todo
