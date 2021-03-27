@@ -1,4 +1,5 @@
 export class User {
     token: string
-    username: string
+    userName: string
+    password: string
 }

@@ -8,7 +8,9 @@
     <ng-container *ngIf="(authService.currentUser$ | async) === null">
         <form class="text-light ml-5" (ngSubmit)="login()" #loginForm="ngForm">
             <label for="username">Username</label>
-            <input [(ngModel)]="user.username" required class="ml-2" type="text" name="username" id="username">
+            <input [(ngModel)]="user.userName" required class="ml-1" type="text" name="username" id="username">
+            <label class="ml-2" for="password">Password</label>
+            <input [(ngModel)]="user.password" required class="ml-1" type="password" name="password" id="password">
             <button type="submit" [disabled]="!loginForm.valid" class="btn ml-3 btn-outline-success">Login</button>
         </form>
     </ng-container>
