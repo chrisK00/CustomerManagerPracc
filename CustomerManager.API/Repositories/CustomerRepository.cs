@@ -22,48 +22,48 @@ namespace CustomerManager.API.Repositories
             _mapper = mapper;
         }
 
-        public async Task<AppUser> GetUserAsync(int id)
+        public async Task<AppUser> GetUserAsync(string id)
         {
-            var user = await _context.AppUsers.Include(p => p.Photos).FirstOrDefaultAsync(u => u.Id == id);
+            var user = await _context.Users.Include(p => p.Photos).FirstOrDefaultAsync(u => u.Id == id);
             return user;
         }
 
-        public async Task<AppUser> GetUserByNameAsync(string username)
+        public async Task<AppUser> GetUserByUserNameAsync(string username)
         {
-            var user = await _context.AppUsers.Include(p => p.Photos).FirstOrDefaultAsync(u => u.Username == username);
+            var user = await _context.Users.Include(p => p.Photos).FirstOrDefaultAsync(u => u.UserName == username);
             return user;
         }
 
         public async Task<ICollection<CustomerDTO>> GetCustomersAsync()
-        {           
-            var customers = await _context.AppUsers.ProjectTo<CustomerDTO>(_mapper.ConfigurationProvider).ToListAsync();
+        {
+            var customers = await _context.Users.ProjectTo<CustomerDTO>(_mapper.ConfigurationProvider).ToListAsync();
             return customers;
         }
 
-        public async Task<UserDTO> GetUserDTOByUsernameAsync(string username)
+        public async Task<CustomerDTO> GetCustomerByUserNameAsync(string username)
         {
-           var user = await _context.AppUsers
-                .Where(c => c.Username == username)
+            var customer = await _context.Users
+                .Where(u => u.UserName == username)
+                .ProjectTo<CustomerDTO>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
+            return customer;
+        }
+
+        public async Task<UserDTO> GetUserDTOByUserNameAsync(string username)
+        {
+            var user = await _context.Users
+                .Where(u => u.UserName == username)
                 .ProjectTo<UserDTO>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
             return user;
         }
 
-        public async Task<CustomerDTO> GetCustomerByUsernameAsync(string username)
+        public void Remove(AppUser user)
         {
-            var customer = await _context.AppUsers
-                 .Where(c => c.Username == username)
-                 .ProjectTo<CustomerDTO>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
-            return customer;
+            _context.Users.Remove(user);
         }
 
-        public void Remove(AppUser customer)
+        public async Task AddAsync(AppUser user)
         {
-            _context.AppUsers.Remove(customer);
-        }
-
-        public async Task AddAsync(AppUser customer)
-        {
-            await _context.AppUsers.AddAsync(customer);
+            await _context.Users.AddAsync(user);
         }
 
     
