@@ -12,4 +12,19 @@ export class TestErrorsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  get500Error() {
+
+  }
+
+  get400Error() {
+
+  }
+
+  get401Error() {
+
+  }
+
+  get404Error() {
+
+  }
 }

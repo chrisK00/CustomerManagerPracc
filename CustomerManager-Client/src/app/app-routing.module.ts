@@ -9,10 +9,11 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   {
     path: '', runGuardsAndResolvers: 'always', canActivate: [AuthGuard], children: [
-      { path: 'customers', component: CustomerListComponent }
+      { path: 'customers', component: CustomerListComponent },
+      { path: 'errors', component: TestErrorsComponent }
     ]
   },
-  { path: 'errors', component: TestErrorsComponent },
+
   { path: '**', component: HomeComponent, pathMatch: 'full' }
 ];
 
