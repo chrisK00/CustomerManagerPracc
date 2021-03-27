@@ -94,39 +94,6 @@
 			"response": []
 		},
 		{
-			"name": "remove user",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJjaHJpcyIsIm5iZiI6MTYxNjg2NDUzNywiZXhwIjoxNjE2OTUwOTM3LCJpYXQiOjE2MTY4NjQ1Mzd9.4_E8fx8RkX0v8vtNJeFuz-4LD0pVhEIzHhMpb3ngX_4tLbE7Jgcobc6BjjhFQ9XxxxmD-S5tCRU8pK_vJ13r5A",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{custUrl}}/auth/chris",
-					"host": [
-						"{{custUrl}}"
-					],
-					"path": [
-						"auth",
-						"chris"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Get Member Hull",
 			"request": {
 				"method": "GET",
@@ -228,6 +195,30 @@
 					],
 					"path": [
 						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "remove user",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{custUrl}}/auth/chris",
+					"host": [
+						"{{custUrl}}"
+					],
+					"path": [
+						"auth",
+						"chris"
 					]
 				}
 			},
