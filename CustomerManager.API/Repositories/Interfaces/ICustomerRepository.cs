@@ -15,7 +15,7 @@ namespace CustomerManager.API.Repositories.Interfaces
         Task<UserDTO> GetUserDTOByUserNameAsync(string username);
         Task<CustomerDTO> GetCustomerByUserNameAsync(string username);
         Task<ICollection<CustomerDTO>> GetCustomersAsync();
-        Task AddAsync(AppUser user);
-        void Remove(AppUser user);
+        Task AddAsync(AppUser user, string password);
+        Task RemoveAsync(AppUser user);
     }
 }

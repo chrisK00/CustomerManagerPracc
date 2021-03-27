@@ -5,22 +5,23 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using CustomerManager.API.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomerManager.API.Data
 {
     public static class Seed
     {
-        public static async Task SeedCustomersAsync(CustomerContext context)
+        public static async Task SeedCustomersAsync(UserManager<AppUser> userManager, CustomerContext context)
         {
-            if (await context.AppUsers.AnyAsync())
+            if (await userManager.Users.AnyAsync())
             {
                 return;
             }
             var customerData = await File.ReadAllTextAsync("Data/CustomerSeedData.json");
             var customers = JsonSerializer.Deserialize<List<AppUser>>(customerData);
 
-            await context.AddRangeAsync(customers);
+            customers.ForEach(c => userManager.CreateAsync(c, "Password123."));
             await context.SaveChangesAsync();
         }
     }

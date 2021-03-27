@@ -43,7 +43,7 @@ namespace CustomerManager.API.Controllers
         [HttpGet("{username}")]
         public async Task<ActionResult<CustomerDTO>> GetCustomer(string username)
         {
-            var customer = await _customerRepo.GetCustomerByUsernameAsync(username);
+            var customer = await _customerRepo.GetCustomerByUserNameAsync(username);
             // return customer == null ? NotFound(name) : customer;
 
             if (customer == null)
@@ -61,7 +61,7 @@ namespace CustomerManager.API.Controllers
         public async Task<IActionResult> UpdateCustomer(string username, CustomerUpdateDTO customer)
         {
             var usernameFromToken = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var user = await _customerRepo.GetUserByNameAsync(usernameFromToken);
+            var user = await _customerRepo.GetUserByUserNameAsync(usernameFromToken);
             _mapper.Map(customer, user);
 
             if (await _unitOfWork.SaveAsync())

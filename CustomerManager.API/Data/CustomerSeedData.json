@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Username": "Drake",
+    "UserName": "Drake",
     "LookingFor": "Fugiat culpa nulla id ullamco laboris quis ipsum aliquip ullamco aute consequat labore.",
     "Photos": [
       {
@@ -10,7 +10,7 @@
     ]
   },
   {
-    "Username": "Faulkner",
+    "UserName": "Faulkner",
     "LookingFor": "Est id nisi incididunt minim sunt.",
     "Photos": [
       {
@@ -20,7 +20,7 @@
     ]
   },
   {
-    "Username": "Hull",
+    "UserName": "Hull",
     "LookingFor": "Amet ut fugiat fugiat est occaecat in in duis amet.",
     "Photos": [
       {

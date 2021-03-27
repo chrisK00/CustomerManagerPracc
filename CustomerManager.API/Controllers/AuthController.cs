@@ -7,6 +7,7 @@ using CustomerManager.API.Repositories;
 using CustomerManager.API.Repositories.Interfaces;
 using CustomerManager.API.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -19,45 +20,53 @@ namespace CustomerManager.API.Controllers
         private readonly IMapper _mapper;
         private readonly ICustomerRepository _customerRepo;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly SignInManager<AppUser> _signInManager;
 
         public AuthController(ITokenService tokenService, ILogger<AuthController> logger, IMapper mapper,
-            ICustomerRepository customerRepo, IUnitOfWork unitOfWork)
+            ICustomerRepository customerRepo, IUnitOfWork unitOfWork,
+            SignInManager<AppUser> signInManager)
         {
             _tokenService = tokenService;
             _logger = logger;
             _mapper = mapper;
             _customerRepo = customerRepo;
             _unitOfWork = unitOfWork;
+            _signInManager = signInManager;
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> RegisterAsync(UserRegisterDTO userRegisterDTO)
         {
-            //todo
-            //check if user already exists
-
-            await _customerRepo.AddAsync(_mapper.Map<AppUser>(userRegisterDTO));
+            await _customerRepo.AddAsync(_mapper.Map<AppUser>(userRegisterDTO), userRegisterDTO.Password);
             await _unitOfWork.SaveAsync();
-            return Created("Customers", userRegisterDTO.Username);
+            return Created("Customers", userRegisterDTO.UserName);
         }
 
         [HttpPost("login")]
-        public ActionResult<UserDTO> Login(UserLoginDTO customer)
+        public async Task<ActionResult<UserDTO>> Login(UserLoginDTO customer)
         {
-            //Todo
-            //setup identity framework 
-            //authenticate
+            var user = await _customerRepo.GetUserByUserNameAsync(customer.UserName);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var signInResult = await _signInManager.CheckPasswordSignInAsync(user, customer.Password, false);
+
+            if (!signInResult.Succeeded)
+            {
+                return Unauthorized();
+            }
 
             var token = _tokenService.CreateToken(customer);
-            _logger.LogInformation($"New token created for {customer.Username}", token);
+            _logger.LogInformation($"New token created for {customer.UserName}", token);
 
             return new UserDTO
             {
-                Username = customer.Username,
+                UserName = customer.UserName,
                 Token = token
             };
-
         }
+
 
         [Authorize]
         [HttpDelete("{username}")]
@@ -67,8 +76,8 @@ namespace CustomerManager.API.Controllers
             //update
 
             var usernameFromToken = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var user = await _customerRepo.GetUserByNameAsync(usernameFromToken);
-            _customerRepo.Remove(user);
+            var user = await _customerRepo.GetUserByUserNameAsync(usernameFromToken);
+            await _customerRepo.RemoveAsync(user);
 
             //Todo
             //Throw keynotfound exception inside of service
@@ -78,3 +87,5 @@ namespace CustomerManager.API.Controllers
         }
     }
 }
+
+

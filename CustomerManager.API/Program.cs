@@ -1,7 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using CustomerManager.API.Data;
+using CustomerManager.API.Models;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -18,14 +20,15 @@ namespace CustomerManager.API
             using var scope = host.Services.CreateScope();
             try
             {
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
                 var context = scope.ServiceProvider.GetRequiredService<CustomerContext>();
                 await context.Database.MigrateAsync();
-                await Seed.SeedCustomersAsync(context);
+                await Seed.SeedCustomersAsync(userManager, context);
             }
             catch (Exception ex)
             {
                 var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-                logger.LogError(ex,"Seeding error");
+                logger.LogError(ex, "Seeding error");
             }
 
             await host.RunAsync();

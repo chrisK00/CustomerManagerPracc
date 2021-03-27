@@ -22,10 +22,10 @@ namespace CustomerManager.API.Extensions
             services.AddAutoMapper(typeof(CustomerProfiles).Assembly);
             /*  services.AddDbContext<CustomerContext>(opt =>
              opt.UseInMemoryDatabase("CustomerList"));
-           
+                    */
             services.AddDbContext<CustomerContext>(opt =>
            opt.UseSqlite(config.GetConnectionString("Default")));
-             */
+    
 
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -49,9 +49,8 @@ namespace CustomerManager.API.Extensions
                          ValidateIssuer = false
                      };
                  });
-            a
+            
             //Todo
-            //make a collection in postman for easier testing
             //move key to appsettings secret/dev
             return services;
         }
