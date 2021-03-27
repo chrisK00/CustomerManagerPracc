@@ -12,6 +12,7 @@ Api:
 - Data seeding
 - Automapper
 - Global exception handler
+- Asp Identity Framework
 
 Angular:
 - Parent to child communication
