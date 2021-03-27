@@ -23,7 +23,6 @@ namespace CustomerManager.API.Controllers
             IMapper mapper)
         {
             _logger = logger;
-
             //Todo
             //move to service
             _customerRepo = customerRepo;
@@ -70,27 +69,6 @@ namespace CustomerManager.API.Controllers
                 return NoContent();
             }
             return BadRequest("Failed to update user");
-        }
-        
-        [HttpPost]
-        public async Task<IActionResult> AddCustomer(AppUser customer)
-        {
-            await _customerRepo.AddAsync(customer);
-            await _unitOfWork.SaveAsync();
-            return Created("Customers", customer.Username);
-        }
-
-        [HttpDelete("{username}")]
-        public IActionResult RemoveCustomer(string username, AppUser customer)
-        {
-            //Todo
-            //Throw keynotfound exception inside of service
-            //Catch and send back Notfound
-            //update route should have id in url
-
-            _customerRepo.Remove(customer);
-            _unitOfWork.SaveAsync();
-            return NoContent();
-        }
+        }                   
     }
 }

@@ -18,6 +18,7 @@ namespace CustomerManager.API.Profiles
 
             CreateMap<CustomerUpdateDTO, AppUser>();
             CreateMap<Photo, PhotoDTO>();
+            CreateMap<UserRegisterDTO, AppUser>();
         }
     }
 }
