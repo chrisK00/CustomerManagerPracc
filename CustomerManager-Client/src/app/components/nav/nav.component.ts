@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { User } from 'src/app/_interfaces/user';
 import { AuthService } from 'src/app/_services/auth.service';
 
@@ -9,6 +10,7 @@ import { AuthService } from 'src/app/_services/auth.service';
 })
 export class NavComponent implements OnInit {
   user: User = new User();
+  @ViewChild('loginForm') loginForm: NgForm;
 
   constructor(public authService: AuthService) { }
 
@@ -16,7 +18,9 @@ export class NavComponent implements OnInit {
   }
 
   login() {
-    this.authService.login(this.user).subscribe();
+    this.authService.login(this.user).subscribe(() =>
+      this.loginForm.reset());
+
   }
 
   logout() {
