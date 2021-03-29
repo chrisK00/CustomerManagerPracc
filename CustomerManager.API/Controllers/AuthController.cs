@@ -32,7 +32,7 @@ namespace CustomerManager.API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterAsync(UserRegisterDTO userRegisterDTO)
+        public async Task<IActionResult> Register(UserRegisterDTO userRegisterDTO)
         {
             await _customerRepo.AddAsync(_mapper.Map<AppUser>(userRegisterDTO), userRegisterDTO.Password);
             await _unitOfWork.SaveAsync();
@@ -62,6 +62,6 @@ namespace CustomerManager.API.Controllers
                 UserName = customer.UserName,
                 Token = token
             };
-        }         
+        }
     }
 }

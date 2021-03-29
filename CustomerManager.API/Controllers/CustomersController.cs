@@ -6,6 +6,7 @@ using CustomerManager.API.DTOs;
 using CustomerManager.API.Extensions;
 using CustomerManager.API.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -40,7 +41,7 @@ namespace CustomerManager.API.Controllers
             return Ok(customers);
         }
 
-        [HttpGet("{username}")]
+        [HttpGet("{username}", Name = "GetCustomer")]
         public async Task<ActionResult<CustomerDTO>> GetCustomer(string username)
         {
             var customer = await _customerRepo.GetCustomerByUserNameAsync(username);
@@ -68,11 +69,11 @@ namespace CustomerManager.API.Controllers
             {
                 return BadRequest("Failed to update user");
             }
-            return NoContent();           
+            return NoContent();
         }
 
         [HttpDelete("{username}")]
-        public async Task<IActionResult> RemoveUserAsync(string username)
+        public async Task<IActionResult> RemoveUser(string username)
         {
             var usernameFromToken = User.GetUsername();
             var user = await _customerRepo.GetUserByUserNameAsync(usernameFromToken);
@@ -86,6 +87,16 @@ namespace CustomerManager.API.Controllers
                 return BadRequest("Failed to update user");
             }
             return NoContent();
+        }
+
+        [HttpPost("add-photo")]
+        public async Task<ActionResult<PhotoDTO>> AddPhoto(IFormFile file)
+        {
+            //Todo
+            //add and configure cloudinary
+            var photo = new PhotoDTO { };
+
+            return CreatedAtRoute(nameof(GetCustomer), new { username = "Hull" }, photo);
         }
     }
 }

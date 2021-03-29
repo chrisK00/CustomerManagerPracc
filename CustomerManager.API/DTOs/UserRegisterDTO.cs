@@ -7,7 +7,7 @@ namespace CustomerManager.API.DTOs
         [Required]
         public string UserName { get; set; }
 
-        [Required]
+        [Required, MinLength(6)]
         public string Password { get; set; }
     }
 }
