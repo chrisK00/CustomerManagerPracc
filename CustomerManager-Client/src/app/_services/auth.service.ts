@@ -31,4 +31,8 @@ export class AuthService {
     localStorage.removeItem('user');
     this.currentUser.next(null);
   }
+
+  register(user: User) {
+    return this.http.post(this.baseUrl + 'auth/register', user);
+  }
 }

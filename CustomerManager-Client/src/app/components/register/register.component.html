@@ -1,1 +1,14 @@
-<p>This will be a register form</p>
+<h3 class="ml-5"><i class="fa fa-2x fa-user-plus"></i> </h3>
+<form class="text-dark mt-4" (ngSubmit)="register()" #loginForm="ngForm">
+    <div class="form-group">
+        <label for="rUsername"><strong>Username</strong></label>
+        <input [(ngModel)]="user.userName" required class="ml-2 form-item p-1" type="text" name="rUsername"
+            id="rUsername">
+    </div>
+    <div class="form-group">
+        <label class="ml-1" for="rPassword"><strong>Password</strong></label>
+        <input [(ngModel)]="user.password" required class="ml-2 form-item p-1" type="password" name="rPassword"
+            id="rPassword">
+    </div>
+    <button type="submit" [disabled]="!loginForm.valid" class="btn ml-5 btn-success text-white">Register</button>
+</form>
