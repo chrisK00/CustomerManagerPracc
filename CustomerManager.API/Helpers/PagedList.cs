@@ -19,6 +19,7 @@ namespace CustomerManager.API.Helpers
             AddRange(items);
         }
 
+        //could probably match theese names with constructor and helper classes
         public int CurrentPage { get; set; }
         public int PageSize { get; set; }
         public int TotalPages { get; set; }
