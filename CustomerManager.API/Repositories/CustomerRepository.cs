@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using CustomerManager.API.DTOs;
+using CustomerManager.API.Helpers;
 using CustomerManager.API.Models;
 using CustomerManager.API.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -32,9 +33,11 @@ namespace CustomerManager.API.Repositories
             return await _userManager.Users.Include(p => p.Photos).FirstOrDefaultAsync(u => u.UserName == username);
         }
 
-        public async Task<ICollection<CustomerDTO>> GetCustomersAsync()
+        public async Task<PagedList<CustomerDTO>> GetCustomersAsync(UserParams userParams)
         {
-            return await _userManager.Users.ProjectTo<CustomerDTO>(_mapper.ConfigurationProvider).ToListAsync();
+            //we just wanna return theese to the client
+            var query = _userManager.Users.ProjectTo<CustomerDTO>(_mapper.ConfigurationProvider).AsNoTracking();
+            return await PagedList<CustomerDTO>.CreateAsync(query, userParams.PageNumber, userParams.PageSize);
         }
 
         public async Task<CustomerDTO> GetCustomerByUserNameAsync(string username)
@@ -46,8 +49,8 @@ namespace CustomerManager.API.Repositories
 
         public async Task<UserDTO> GetUserDTOByUserNameAsync(string username)
         {
-           return await _userManager.Users.Where(u => u.UserName == username)
-                .ProjectTo<UserDTO>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
+            return await _userManager.Users.Where(u => u.UserName == username)
+                 .ProjectTo<UserDTO>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
         }
 
         public async Task RemoveAsync(AppUser user)

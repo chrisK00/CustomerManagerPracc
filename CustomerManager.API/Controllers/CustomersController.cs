@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CustomerManager.API.DTOs;
 using CustomerManager.API.Extensions;
+using CustomerManager.API.Helpers;
 using CustomerManager.API.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -35,10 +36,12 @@ namespace CustomerManager.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CustomerDTO>>> GetCustomers()
+        public async Task<ActionResult<PagedList<CustomerDTO>>> GetCustomers([FromQuery] UserParams userParams)
         {
-            var customers = await _customerRepo.GetCustomersAsync();
-            return Ok(customers);
+            var customers = await _customerRepo.GetCustomersAsync(userParams);
+            Response.AddPaginationHeader(customers.PageSize, customers.TotalCount, customers.TotalPages, customers.CurrentPage);
+            
+            return customers;
         }
 
         [HttpGet("{username}", Name = "GetCustomer")]

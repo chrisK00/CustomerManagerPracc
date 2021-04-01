@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CustomerManager.API.DTOs;
+using CustomerManager.API.Helpers;
 using CustomerManager.API.Models;
 
 namespace CustomerManager.API.Repositories.Interfaces
@@ -15,7 +16,7 @@ namespace CustomerManager.API.Repositories.Interfaces
 
         Task<CustomerDTO> GetCustomerByUserNameAsync(string username);
 
-        Task<ICollection<CustomerDTO>> GetCustomersAsync();
+        Task<PagedList<CustomerDTO>> GetCustomersAsync(UserParams userParams);
 
         Task AddAsync(AppUser user, string password);
 
