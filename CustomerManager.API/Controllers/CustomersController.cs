@@ -38,9 +38,10 @@ namespace CustomerManager.API.Controllers
         [HttpGet]
         public async Task<ActionResult<PagedList<CustomerDTO>>> GetCustomers([FromQuery] UserParams userParams)
         {
+            userParams.CurrentUserName = User.GetUsername();
             var customers = await _customerRepo.GetCustomersAsync(userParams);
             Response.AddPaginationHeader(customers.PageSize, customers.TotalCount, customers.TotalPages, customers.CurrentPage);
-            
+
             return customers;
         }
 
@@ -78,8 +79,7 @@ namespace CustomerManager.API.Controllers
         [HttpDelete("{username}")]
         public async Task<IActionResult> RemoveUser(string username)
         {
-            var usernameFromToken = User.GetUsername();
-            var user = await _customerRepo.GetUserByUserNameAsync(usernameFromToken);
+            var user = await _customerRepo.GetUserByUserNameAsync(User.GetUsername());
             await _customerRepo.RemoveAsync(user);
 
             //Todo

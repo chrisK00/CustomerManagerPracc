@@ -36,7 +36,9 @@ namespace CustomerManager.API.Repositories
         public async Task<PagedList<CustomerDTO>> GetCustomersAsync(UserParams userParams)
         {
             //we just wanna return theese to the client
-            var query = _userManager.Users.ProjectTo<CustomerDTO>(_mapper.ConfigurationProvider).AsNoTracking();
+            var query = _userManager.Users.Where(u => u.UserName != userParams.CurrentUserName)
+                .ProjectTo<CustomerDTO>(_mapper.ConfigurationProvider).AsNoTracking();
+
             return await PagedList<CustomerDTO>.CreateAsync(query, userParams.PageNumber, userParams.PageSize);
         }
 
